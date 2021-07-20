@@ -63,7 +63,7 @@ const checkUsernameExists = (req, res, next) => {
     }
   */
  const { username } = req.body;
- const found = users.findBy({ username: username }).first();
+ const found = users.findBy({ username: username });
 
  if (!found) {
   res.status(401).json({ message: "Invalid credentials" });
@@ -95,7 +95,7 @@ const validateRoleName = (req, res, next) => {
   */
   let { role_name } = req.body; 
 
-  if (!role_name) {
+  if (!role_name || typeof(role_name) !== "string" ) {
     role_name = "student";
   } else {
     role_name = role_name.trim();
@@ -108,10 +108,10 @@ const validateRoleName = (req, res, next) => {
         message: "Role name cannot be more than 32 characters"
       });
     }
-    req.body.role_name = role_name;
-    next();
+    
   }
-
+  req.body.role_name = role_name;
+  next();
 }
 
 module.exports = {
