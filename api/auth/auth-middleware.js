@@ -54,7 +54,7 @@ const only = role_name => (req, res, next) => {
 }
 
 
-const checkUsernameExists = (req, res, next) => {
+const checkUsernameExists = async (req, res, next) => {
   /*
     If the username in req.body does NOT exist in the database
     status 401
@@ -63,12 +63,12 @@ const checkUsernameExists = (req, res, next) => {
     }
   */
  const { username } = req.body;
- const found = users.findBy({ username: username });
+ const found = await users.findBy({ username: username });
 
  if (!found) {
   res.status(401).json({ message: "Invalid credentials" });
  } else {
-   req.user = found;
+   req.user = found[0];
    next();
  }
 }
@@ -107,8 +107,7 @@ const validateRoleName = (req, res, next) => {
       res.status(422).json({ 
         message: "Role name cannot be more than 32 characters"
       });
-    }
-    
+    }  
   }
   req.body.role_name = role_name;
   next();
