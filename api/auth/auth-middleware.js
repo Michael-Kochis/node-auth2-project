@@ -46,8 +46,13 @@ const only = role_name => (req, res, next) => {
   */
   const token = req.decodedJWT;
 
-  if (!token || token.role !== role_name) {
-    res.status(403).json({ message: "This is not for you" });
+  if (!token || token.role_name !== role_name) {
+    res.status(403).json({ 
+      actual: token.role_name,
+      expected: role_name,
+      message: "This is not for you",
+      token: req.decodedJWT 
+    });
   } else {
     next();
   }
