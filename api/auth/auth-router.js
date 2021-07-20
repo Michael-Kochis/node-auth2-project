@@ -58,7 +58,7 @@ router.post("/login", checkUsernameExists, async (req, res, next) => {
     });
   } else {
     res.status(401).json({ 
-      message: "Invalid credentials"
+      message: "Invalid credentials you ass"
      })
   }
 });
