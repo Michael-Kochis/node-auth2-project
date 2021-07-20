@@ -68,6 +68,7 @@ const checkUsernameExists = (req, res, next) => {
  if (!found) {
   res.status(401).json({ message: "Invalid credentials" });
  } else {
+   req.user = found;
    next();
  }
 }
