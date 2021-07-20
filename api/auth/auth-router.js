@@ -21,12 +21,8 @@ router.post("/register", validateRoleName, (req, res, next) => {
   user.password = hash;
    
   users.add(user)
-    .then((uid) => {
-      // users.findById(uid)
-      //   .then((resp) => {
-      //     res.status(201).json(resp);
-      //   }).catch(next);
-      res.status(201).json(uid);
+    .then((resp) => {
+      res.status(201).json(resp);
     }).catch(next);
 });
 
