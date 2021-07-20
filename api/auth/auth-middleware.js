@@ -25,7 +25,10 @@ const restricted = (req, res, next) => {
  }
  jwt.verify(token, JWT_SECRET, (err, decodedToken) => {
    if (err) {
-     res.status(401).json({ message: "Token invalid" });
+     res.status(401).json({ 
+       message: "Token invalid",
+      token: decodedToken
+     });
    } else {
      req.decodedJWT = decodedToken;
      next();
@@ -49,8 +52,7 @@ const only = role_name => (req, res, next) => {
   
   if (!token || role_name_found !== role_name) {
     res.status(403).json({ 
-      message: "This is not for you",
-      token: token
+      message: "This is not for you"
     });
   } else {
     next();

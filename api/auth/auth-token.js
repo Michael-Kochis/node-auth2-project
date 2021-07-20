@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const roles = require('../roles/role-model');
-const { JWT_SECRET } = require('../secrets/index')
+const { JWT_SECRET } = require('../secrets')
 
 const generateToken = async (user) => {
     const role = await roles.findById(user.role_id);
